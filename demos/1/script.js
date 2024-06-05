@@ -1,36 +1,51 @@
 function setup() {
   createCanvas(400, 400);
   background(255);
-  noFill();
-  stroke(0);
-  
-  // Draw hand-drawn circle
-  beginShape();
-  vertex(100, 100);
-  vertex(110, 90);
-  vertex(120, 95);
-  vertex(130, 100);
-  vertex(140, 115);
-  vertex(130, 130);
-  vertex(120, 135);
-  vertex(110, 130);
-  vertex(100, 115);
-  endShape(CLOSE);
-  
-  // Draw hand-drawn square
-  beginShape();
-  vertex(200, 100);
-  vertex(250, 100);
-  vertex(255, 110);
-  vertex(250, 150);
-  vertex(200, 150);
-  vertex(195, 140);
-  endShape(CLOSE);
-  
-  // Draw hand-drawn triangle
-  beginShape();
-  vertex(150, 250);
-  vertex(200, 300);
-  vertex(100, 300);
-  endShape(CLOSE);
+
+
+  // BIRD V. 1
+  //
+  //
+  var ctx = canvas.getContext("2d");
+
+  // Draw the bird's body
+  ctx.beginPath();
+  ctx.ellipse(250, 250, 100, 60, Math.PI / 4, 0, 2 * Math.PI);
+  ctx.fillStyle = "#FFD700";
+  ctx.fill();
+  ctx.stroke();
+
+  // Draw the bird's wing
+  ctx.beginPath();
+  ctx.moveTo(250, 250);
+  ctx.quadraticCurveTo(300, 200, 350, 250);
+  ctx.quadraticCurveTo(300, 300, 250, 250);
+  ctx.fillStyle = "#FF6347";
+  ctx.fill();
+  ctx.stroke();
+
+  // Draw the bird's head
+  ctx.beginPath();
+  ctx.arc(190, 190, 40, 0, 2 * Math.PI);
+  ctx.fillStyle = "#FFD700";
+  ctx.fill();
+  ctx.stroke();
+
+  // Draw the bird's beak
+  ctx.beginPath();
+  ctx.moveTo(150, 200);
+  ctx.lineTo(170, 200);
+  ctx.lineTo(170, 180);
+  ctx.closePath();
+  ctx.fillStyle = "#FF6347";
+  ctx.fill();
+  ctx.stroke();
+
+  // Draw the bird's eye
+  ctx.beginPath();
+  ctx.arc(180, 180, 5, 0, 2 * Math.PI);
+  ctx.fillStyle = "#000000";
+  ctx.fill();
+
+
 }
