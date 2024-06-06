@@ -1,6 +1,10 @@
 let squares = [];
 let debris = [];
 
+function preload() {
+  collideDebug(true); // Enable collision debugging
+}
+
 function setup() {
   createCanvas(600, 400);
 }
@@ -10,7 +14,7 @@ function draw() {
 
   // Add new squares at intervals
   if (frameCount % 60 == 0) { // Slower rate
-    squares.push(new Square(random(width - 40), 0, 40));
+    squares.push(new Square(random(width - 40), 0, 40, randomPastelColor()));
   }
 
   // Update and display squares
@@ -35,10 +39,11 @@ function draw() {
 }
 
 class Square {
-  constructor(x, y, size) {
+  constructor(x, y, size, color) {
     this.x = x;
     this.y = y;
     this.size = size;
+    this.color = color;
     this.speed = 2; // Reduced speed for slower fall
     this.isShattered = false;
     this.pieces = [];
@@ -60,7 +65,7 @@ class Square {
 
   show() {
     if (!this.isShattered) {
-      fill(0);
+      fill(this.color);
       rect(this.x, this.y, this.size, this.size);
     } else {
       for (let piece of this.pieces) {
@@ -75,7 +80,7 @@ class Square {
     for (let i = 0; i < 16; i++) { // Create 16 pieces
       let offsetX = (i % 4) * pieceSize;
       let offsetY = floor(i / 4) * pieceSize;
-      let piece = new Piece(this.x + offsetX, this.y + offsetY, pieceSize);
+      let piece = new Piece(this.x + offsetX, this.y + offsetY, pieceSize, this.color);
       this.pieces.push(piece);
       debris.push(piece); // Add piece to debris
     }
@@ -83,10 +88,11 @@ class Square {
 }
 
 class Piece {
-  constructor(x, y, size) {
+  constructor(x, y, size, color) {
     this.x = x;
     this.y = y;
     this.size = size;
+    this.color = color;
     this.speedX = random(-2, 2);
     this.speedY = random(-5, -1); // Initial upward speed for bounce
     this.gravity = 0.2; // Gravity effect
@@ -118,31 +124,26 @@ class Piece {
   }
 
   show() {
-    fill(100);
+    fill(this.color);
     rect(this.x, this.y, this.size, this.size);
   }
 }
 
 function handleCollisions() {
   for (let i = 0; i < debris.length; i++) {
-    for (let j = i + 1; j < debris.length; j++) {
+    for (let j = i + 1; j <
+
+      debris.length; j++) {
       let pieceA = debris[i];
       let pieceB = debris[j];
 
-      if (isColliding(pieceA, pieceB)) {
+      if (collideRectRect(
+        pieceA.x, pieceA.y, pieceA.size, pieceA.size,
+        pieceB.x, pieceB.y, pieceB.size, pieceB.size)) {
         resolveCollision(pieceA, pieceB);
       }
     }
   }
-}
-
-function isColliding(pieceA, pieceB) {
-  return !(
-    pieceA.x + pieceA.size < pieceB.x ||
-    pieceA.x > pieceB.x + pieceB.size ||
-    pieceA.y + pieceA.size < pieceB.y ||
-    pieceA.y > pieceB.y + pieceB.size
-  );
 }
 
 function resolveCollision(pieceA, pieceB) {
@@ -174,4 +175,8 @@ function resolveCollision(pieceA, pieceB) {
     pieceA.speedY *= -0.5;
     pieceB.speedY *= -0.5;
   }
+}
+
+function randomPastelColor() {
+  return color(random(150, 255), random(150, 255), random(150, 255));
 }

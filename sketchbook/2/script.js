@@ -5,5 +5,6 @@ function setup() {
 
 function draw() {
   // Draw a circle in the center of the screen
-  circle(width / 2, height / 2, 50)
+  circle(mouseX, mouseY)
+
 }

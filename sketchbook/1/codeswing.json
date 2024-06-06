@@ -1,6 +1,7 @@
 {
   "scripts": [
-    "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"
+    "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js",
+    "https://cdn.jsdelivr.net/gh/bmoren/p5.collide2D/p5.collide2d.min.js"
   ],
   "styles": []
 }
