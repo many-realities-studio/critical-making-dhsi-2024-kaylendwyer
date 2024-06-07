@@ -178,5 +178,5 @@ function resolveCollision(pieceA, pieceB) {
 }
 
 function randomPastelColor() {
-  return color(random(150, 255), random(150, 255), random(150, 255));
+  return color(10,0);
 }
